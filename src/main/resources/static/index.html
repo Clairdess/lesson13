@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
           integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
@@ -9,102 +9,75 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
             integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
             crossorigin="anonymous"></script>
+    <title>Homework9</title>
 </head>
-<script>
-    const loadAllCitizens = () => {
-        let domain = window.location.origin;
-        fetch(domain + '/citizens')
-            .then(response => response.json())
-            .then(citizens => {
-                citizens.forEach(user => {
-                    $("#citizenGrid")
-                        .append('<li class="list-group-item">' +
-                            '<div>' + user.firstname + '</div>' +
-                            '<div>' + user.id + '</div>' +
-                            '<div>' + user.address + '</div>' +
-                            '<div>' + user.country + '</div>' +
-                            '</li>');
-                });
-            })
-    }
-
-    const loadAllCountries = () => {
-
-        let domain = window.location.origin;
-        fetch(domain + '/countries')
-            .then(response => response.json())
-            .then(countries => {
-                countries.forEach(country => {
-                    $('#allCountriesId').append($('<option>', {
-                        text: country.name
-                    }));
-                });
-            })
-    }
-
-    const addNewCitizen = () => {
-        const newUser = {
-            firstname: $("#newCitizenNameId").val(),
-            id: $("#newCitizenId").val(),
-            address: $("#newCitizenAddressId").val(),
-            country: $('#allCountriesId').find(":selected").val()
-        };
-        const requestOptions = {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(newUser)
-        }
-        let domain = window.location.origin;
-        fetch(domain + '/citizens', requestOptions)
-            .then(response => response.json())
-            .then(data => alert('new citizen: ' + JSON.stringify(data) + ' been added!'))
-            .catch(error => alert('error occured during saving new citizen: ' + JSON.stringify(error)));
-    }
-
-    const reloadPage = () => {
-        cleanCitizens();
-        loadAllCitizens();
-    }
-
-    const cleanCitizens = () => {
-        $("#citizenGrid").empty();
-    }
-
-    $(document).ready(function () {
-        loadAllCountries();
-    });
-
-</script>
+<script src="main.js"></script>
 <body>
-
-<div class="container">
+<div class="content">
     <div>
-        <label for="newCitizenNameId">New Citizen Name</label>
-        <input id="newCitizenNameId" placeholder="Put new citizen name here">
+        <label for="newId">New ID</label>
+        <input id="newId" type="number"  placeholder="Put ID here">
     </div>
     <div>
-        <label for="newCitizenId">New Citizen Id</label>
-        <input id="newCitizenId" placeholder="Put new citizen id here">
+        <label for="newFirstName"> New First Name</label>
+        <input id="newFirstName" placeholder="Put name here">
     </div>
     <div>
-        <label for="newCitizenAddressId">New Citizen Address</label>
-        <input id="newCitizenAddressId" placeholder="Put new citizen address here">
+        <label for="newLastName"> newLastName</label>
+        <input id="newLastName" placeholder="Put name here">
     </div>
     <div>
-        <label for="allCountriesId">New Citizen Country</label>
-        <select id="allCountriesId">
-        </select>
+        <label for="newEmail"> newEmail</label>
+        <input id="newEmail" type="email" placeholder="Put name here">
     </div>
+    <div>
+        <label for="newPhoneNumber"> newPhoneNumber</label>
+        <input id="newPhoneNumber" placeholder="Put name here">
+    </div>
+    <div>
+        <label for="newHireDate"> newHireDate</label>
+        <input id="newHireDate" type="date" placeholder="Put name here">
+    </div>
+    <div>
+        <label for="newJobID"> newJobID</label>
+        <input id="newJobID" placeholder="Put name here">
+    </div>
+    <div>
+        <label for="newSalary"> newSalary</label>
+        <input id="newSalary" type="number" placeholder="Put name here">
+    </div>
+    <div>
+        <label for="newComPCT">newComPCT</label>
+        <input id="newComPCT" type="number" placeholder="Put Last Name here">
+    </div>
+    <div>
+        <label for="newManager">newManager</label>
+        <input id="newManager" placeholder="Put Last Name here">
+    </div>
+    <div>
+        <label for="newDepartmentID">newDepartmentID</label>
+        <input id="newDepartmentID" placeholder="Put Last Name here">
+    </div>
+    <button type="button" onclick="loadAllEmployee()" class="p-2 m-2 btn btn-primary">Show employees</button>
+    <button type="button" onclick="addNewEmployee()" class="p-2 m-2 btn btn-primary">Add new employee</button>
 
-    <button type="button" onclick="loadAllCitizens()" class="p-2 m-2 btn btn-primary">Show citizens</button>
-    <button type="button" onclick="addNewCitizen()" class="p-2 m-2 btn btn-primary">Add new citizen</button>
-    <button type="button" onclick="cleanCitizens()" class="p-2 m-2 btn btn-primary">Clean citizens</button>
+    <table>
+        <tr>
+            <th>Employee_id</th>
+            <th>FirstName</th>
+            <th>LastName</th>
+            <th>Email</th>
+            <th>PhoneNumber</th>
+            <th>HireDate</th>
+            <th>JobId</th>
+            <th>Salary</th>
+        </tr>
+        <tbody id="employeeGrid">
 
-    <ul class="list-group" id="citizenGrid">
-    </ul>
+        </tbody>
 
+    </table>
 </div>
-
 </body>
 
 </html>
