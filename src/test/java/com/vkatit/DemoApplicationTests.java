@@ -1,6 +1,8 @@
 package com.vkatit;
 
+import com.vkatit.repository.EmployeeRepository;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
@@ -25,6 +27,12 @@ class DemoApplicationTests {
     @Autowired
     ApplicationContext applicationContext;
 
-
+    @Test
+    public void test(){
+        EmployeeRepository repository = applicationContext.getBean("employeeRepository", EmployeeRepository.class);
+        if (repository.getAllEmployees().size() > 0){
+            System.out.println("OK");
+        } else throw new RuntimeException();
+    }
 }
 
