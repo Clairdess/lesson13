@@ -22,10 +22,14 @@ public class AppContext {
     @Value("${IP}")
     private String IP;
 
+    @Value("${PORT}")
+    private String PORT;
+
+
     @Bean("mariaDataSource")
     public DataSource mariaDataSource() throws SQLException {
         MariaDbDataSource mariaDbDataSource = new MariaDbDataSource();
-        mariaDbDataSource.setUrl("jdbc:mariadb://" + IP + "/hr");
+        mariaDbDataSource.setUrl("jdbc:mariadb://" + IP +":"+ PORT +"/hr");
         mariaDbDataSource.setUser(username);
         mariaDbDataSource.setPassword(password);
         return mariaDbDataSource;
