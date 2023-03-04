@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 public class Employee {
 
-        @JsonProperty("employeeId")
+    @JsonProperty("employeeId")
     private Long employeeId;
     @JsonProperty("firstName")
     private String firstName;
